@@ -32,8 +32,10 @@ class SubscribersController < ApplicationController
 
   def un_allot_vehicle
     @subscriber = Subscriber.find_by_id(session[:subscriber])
+
+    Availability.where(alloted_to: @subscriber.id).update_all(alloted_to: nil)
     @subscriber.update(vehicle_id: nil)
-    
+
     redirect_to vehicles_path
   end
 
