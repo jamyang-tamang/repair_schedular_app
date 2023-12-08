@@ -2,4 +2,4 @@
 
 Pfft
 
-Readme's are for nerds
+Readmes are for nerds
