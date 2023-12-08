@@ -1,0 +1,28 @@
+<h1>Vehicles</h1>
+<%= link_to "Log out", logout_path, class: "btn btn-primary" %>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Market</th>
+      <th>Associated Subscriber</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vehicle.each do |vehicle| %>
+      <tr>
+        <td><%= vehicle.name %></td>
+        <td><%= vehicle.market.name %></td>
+         <td>
+
+           
+           <% user_present = find_associated_user(vehicle.id) %>
+                <% if user_present != 'No Subscriber' %>
+                  <%= link_to user_present, class: 'available-link' %>
+                <% else %>
+                  <%= link_to 'Allot Vehicle to self', allot_vehicle_to_self_path(vehicle_id: vehicle.id), class: "btn btn-primary"  %>
+                <% end %>
+      </td>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mechanic: one
+  repair_type: one
+  subscription: one
+  vehicle: one
+  scheduled_at: 2023-12-05 11:13:23
+  duration: 1
+
+two:
+  mechanic: two
+  repair_type: two
+  subscription: two
+  vehicle: two
+  scheduled_at: 2023-12-05 11:13:23
+  duration: 1

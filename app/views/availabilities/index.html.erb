@@ -1,0 +1,39 @@
+<h1>Availabilities</h1>
+<% @subscriber = Subscriber.find_by(id: session[:subscriber]) %>
+<h3><%= user = @subscriber.name if @subscriber %></h3>
+<%= link_to "Log out", logout_path, class: "btn btn-primary" %>
+<%= link_to 'Return Vehicle', un_allot_vehicle_path, class: "btn btn-primary"  %>
+
+
+<% @schedule_data.each do |mechanic_name, schedule_by_day| %>
+  <h2><%= mechanic_name %>'s Schedule</h2>
+  
+  <table>
+    <tr>
+      <th>Day/Time</th>
+      <% schedule_by_day.keys.each do |day| %>
+        <th><%= day %></th>
+      <% end %>
+    </tr>
+
+    <% schedule_by_day.first.last.each do |time_slot| %>
+      <tr>
+        <td><%= "#{time_slot[:start_time]} - #{time_slot[:end_time]}" %></td>
+        <% schedule_by_day.keys.each do |day| %>
+          <% availability = schedule_by_day[day].find { |a| a[:start_time] == time_slot[:start_time] && a[:end_time] == time_slot[:end_time] } %>
+            <td>
+                <% schedule_status = render_day_schedule(availability) %>
+                <% if schedule_status == 'Available' %>
+                  <%= link_to 'Book Appointment', allot_to_user_path(availability_id: availability[:id], subscriber_id:session[:subscriber])%>
+                <% elsif schedule_status == 'Cancel Appointment' %>
+                  <%= link_to 'Cancel Appointment', un_allot_to_user_path(availability_id: availability[:id], subscriber_id:session[:subscriber])%>
+                <% elsif schedule_status == 'Not Available' %>
+                <%= link_to 'Not Available'%>
+                <% end %>
+              </td> 
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
